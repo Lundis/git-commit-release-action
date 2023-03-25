@@ -21281,6 +21281,7 @@ const gitPrRelease = __nccwpck_require__(2567);
   const assign = core.getInput('assign');
   const labelsCsv = core.getInput('labels');
   const templatePath = core.getInput('template');
+  const all_commits = core.getInput('all_commits');
 
   const areLabelsDefined = labelsCsv && labelsCsv.length;
   const labels = areLabelsDefined ? labelsCsv.split(',').map(l => l.trim()) : [];
@@ -21299,6 +21300,7 @@ const gitPrRelease = __nccwpck_require__(2567);
   core.info(`assign: ${assign}`);
   core.info(`labels: ${labels}`);
   core.info(`template: ${template}`);
+  core.info(`all_commits: ${all_commits}`);
 
   const releasePr = await gitPrRelease({
     host, token, owner, repo,
