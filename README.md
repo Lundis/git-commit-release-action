@@ -45,6 +45,7 @@ jobs:
 - `template`: Path to the template you want to use.
 - `tz`: Used to generate the version string.
 - `token`: **required** `GITHUB_TOKEN` for creating a pull request.
+- `all_commits`: if true, consider all commmits, not just merge commits
 
 Note that this action uses the template file in your repository. So you need 'checkout' step if you specify template option.
 

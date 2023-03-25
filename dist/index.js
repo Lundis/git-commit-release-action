@@ -17,6 +17,7 @@ module.exports = async function detect({
   repo,
   base,
   head,
+  all_commits
 }) {
   if (!octokit) {
     octokit = octokitWithThrottling.get({
@@ -34,9 +35,13 @@ module.exports = async function detect({
     `Found ${compareRes.data.commits.length} commits between head and base`
   );
   // FIXME This line removes the fast forward PR merges from the game, which is not correct
-  const merge_commits = compareRes.data.commits.filter(
-    (c) => c.parents.length > 1
-  );
+  let merge_commits = compareRes.data.commits;
+  if (!all_commits) {
+    merge_commits = merge_commits.filter(
+        (c) => c.parents.length > 1
+    );
+  }
+
   core.info(
     `${merge_commits.length} commits remain after filtering out commits with a single parent`
   );
@@ -98,13 +103,14 @@ module.exports = async function ({
   assign,
   labels,
   template,
+  all_commits
 }) {
   const octokit = octokitWithThrottling.get({
     auth: token,
     ...(host ? { baseUrl: host } : {}),
   });
 
-  const pulls = await detect({ octokit, token, owner, repo, base, head });
+  const pulls = await detect({ octokit, token, owner, repo, base, head, all_commits });
 
   if (pulls.length === 0) {
     core.info("No PRs found between base and head");
