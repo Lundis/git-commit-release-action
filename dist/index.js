@@ -54,7 +54,7 @@ module.exports = async function detect({
   // Divide 'pulls' to chunks.
   const chunkedCommits = toChunk(merge_commits, 20);
   core.info(`Created an array of ${chunkedCommits.length} chunks`);
-  const pulls = await chunkedCommits.reduce(async (accum, chunk, index) => {
+  let pulls = await chunkedCommits.reduce(async (accum, chunk, index) => {
     // Awaiting accum because the function passed to reduce is async, therefore returns a promise
     const acc = await accum;
     // Avoid making too many calls too fast to keep below GitHub's search rate limit
@@ -71,6 +71,20 @@ module.exports = async function detect({
     const pullChunk = await octokit.search.issuesAndPullRequests({ q });
     return acc.concat(pullChunk.data.items);
   }, []);
+
+  if (pulls.length === 0) {
+    pulls = merge_commits.map((c) => {
+      return {
+        title: c.message,
+        number: c.sha.substring(0, 7),
+        assignees: [c.author],
+        user: c.author,
+        checked: true
+      }
+    })
+    pulls = [{
+    }]
+  }
 
   return Object.values(
     pulls.reduce((accum, pull) => {
