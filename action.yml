@@ -23,6 +23,8 @@ inputs:
   token:
     description: 'Used to create a pull request.'
     required: true
+  all_commits:
+    description: 'If true, consider all commmits, not just merge commits.'
 runs:
   using: 'node16'
   main: 'dist/index.js'
