@@ -40,7 +40,7 @@ jobs:
 - `repo`: Default is current reopsitory's name.
 - `base`: **required** Base branch of the release pull-request.
 - `head`: **required** Head branch of the release pull-request. Typically, it is the same as a subscribed branch.
-- `assign`: If true, assign each pull-req's assignees to the release pull-req
+- `assign`: If true, assign each commit's author to the release pull-req
 - `labels`: Labels that is added to the release pull-request
 - `template`: Path to the template you want to use.
 - `tz`: Used to generate the version string.

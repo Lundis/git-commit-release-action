@@ -13,7 +13,7 @@ inputs:
     description: "Head branch of the release pull-request. Typically, it is the same as a subscribed branch."
     required: true
   assign:
-    description: "If true, assign each commit's assignees to the release pull-req"
+    description: "If true, assign each commit's author to the release pull-req"
   labels:
     description: 'Labels that is added to the release pull-request'
   template:

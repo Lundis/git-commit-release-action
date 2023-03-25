@@ -131,9 +131,8 @@ module.exports = async function ({
   if (assign) {
     core.info("Assigning stakeholders to the PR");
     const assignees = commits
-      .reduce((accum, p) => accum.concat(p.assignees, p.user), [])
-      .filter((user) => user.type === "User")
-      .map((user) => user.login);
+      .filter((c) => c.author.type === "User")
+      .map((c) => c.author.login);
 
     await octokit.issues.addAssignees({
       owner,
@@ -181,7 +180,7 @@ exports.assemble = ({ template, commits }) => {
 
 const defaultTemplate = `Release {{version}}
 {{#commits}}
-- #{{number}} {{title}} {{#assignees}}@{{login}}{{#user}}@{{login}}{{/user}}
+- #{{number}} {{title}} {{#user}}@{{login}}{{/user}}
 {{/commits}}
 `;
 
