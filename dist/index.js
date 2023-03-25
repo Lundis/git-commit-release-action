@@ -38,15 +38,6 @@ module.exports = async function detect({
     return [];
   }
 
-  merge_commits = merge_commits.map((c) => {
-      return {
-        title: c.commit.message,
-        number: c.sha.substring(0, 7),
-        assignees: [c.author],
-        user: c.author
-      }
-    })
-
   return Object.values(
       merge_commits.reduce((accum, commit) => {
       // uniq.
@@ -170,12 +161,11 @@ exports.assemble = ({ template, commits }) => {
   const version = moment().format('YYYY-MM-DD HH:mm:ss');
   const text = render(tmpl, {
     version: version,
-    pulls: commits.map(pull => {
+    commits: commits.map(c => {
       return {
-        title: pull.title,
-        number: pull.number,
-        assignees: pull.assignees,
-        user: pull.user,
+        title: c.commit.message,
+        number: c.sha.substring(0, 7),
+        user: c.author,
       }
     })
   });
@@ -190,9 +180,9 @@ exports.assemble = ({ template, commits }) => {
 }
 
 const defaultTemplate = `Release {{version}}
-{{#pulls}}
-- #{{number}} {{title}} {{#assignees}}@{{login}}{{/assignees}}{{^assignees}}{{#user}}@{{login}}{{/user}}{{/assignees}}
-{{/pulls}}
+{{#commits}}
+- #{{number}} {{title}} {{#assignees}}@{{login}}{{#user}}@{{login}}{{/user}}
+{{/commits}}
 `;
 
 
