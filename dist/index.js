@@ -36,15 +36,14 @@ module.exports = async function detect({
   );
   // FIXME This line removes the fast forward PR merges from the game, which is not correct
   let merge_commits = compareRes.data.commits;
-  if (!all_commits) {
+  if (all_commits !== 'true') {
     merge_commits = merge_commits.filter(
         (c) => c.parents.length > 1
     );
+    core.info(
+        `${merge_commits.length} commits remain after filtering out commits with a single parent`
+    );
   }
-
-  core.info(
-    `${merge_commits.length} commits remain after filtering out commits with a single parent`
-  );
 
   if (merge_commits.length === 0) {
     core.info("Returning empty array");
@@ -21306,6 +21305,7 @@ const gitPrRelease = __nccwpck_require__(2567);
     host, token, owner, repo,
     base, head,
     assign, labels, template,
+    all_commits
   });
 
   core.info('Returned PR:');
