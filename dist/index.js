@@ -82,8 +82,6 @@ module.exports = async function detect({
         checked: true
       }
     })
-    pulls = [{
-    }]
   }
 
   return Object.values(
