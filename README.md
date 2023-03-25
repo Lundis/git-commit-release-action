@@ -3,9 +3,9 @@
 Create a pull-request for the production release.
 
 If your team adopts a workflow like 'GitLab flow', you may have two branches, such as production and pre-production (or staging and so on).
-This action helps to list up pull-requests related to commits between production and pre-production. And creates (or updates) a new pull-request with the list in the body.
+This action helps to list up commits between production and pre-production. And creates (or updates) a new pull-request with the list in the body.
 
-This action is inspired by [motemen/git-pr-release](https://github.com/motemen/git-pr-release) and [uiur/github-pr-release](https://github.com/uiur/github-pr-release).
+This action is based on [grassedge/git-pr-release-action](https://github.com/grassedge/git-pr-release-action).
 
 ## Usage
 
@@ -25,7 +25,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v1
       - name: create-release-pr
-        uses: grassedge/git-pr-release-action@v1.0
+        uses: Lundis/git-pr-release-action@master
         with:
           base: production
           head: pre-production
@@ -45,7 +45,6 @@ jobs:
 - `template`: Path to the template you want to use.
 - `tz`: Used to generate the version string.
 - `token`: **required** `GITHUB_TOKEN` for creating a pull request.
-- `all_commits`: if true, consider all commmits, not just merge commits
 
 Note that this action uses the template file in your repository. So you need 'checkout' step if you specify template option.
 
