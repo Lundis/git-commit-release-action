@@ -75,7 +75,7 @@ module.exports = async function detect({
   if (pulls.length === 0) {
     pulls = merge_commits.map((c) => {
       return {
-        title: c.message,
+        title: c.commit.message,
         number: c.sha.substring(0, 7),
         assignees: [c.author],
         user: c.author,
