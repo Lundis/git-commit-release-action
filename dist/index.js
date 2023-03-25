@@ -38,13 +38,7 @@ module.exports = async function detect({
     return [];
   }
 
-  return Object.values(
-      merge_commits.reduce((accum, commit) => {
-      // uniq.
-      accum[commit.number] = commit;
-      return accum;
-    }, {})
-  );
+  return merge_commits;
 };
 
 
