@@ -157,7 +157,6 @@ exports.assemble = ({ template, commits }) => {
     commits: commits.map(c => {
       return {
         title: c.commit.message.split(/\r?\n/)[0],
-        number: c.sha.substring(0, 7),
         user: c.author,
       }
     })
@@ -174,7 +173,7 @@ exports.assemble = ({ template, commits }) => {
 
 const defaultTemplate = `Release {{version}}
 {{#commits}}
-- #{{number}} {{title}} {{#user}}@{{login}}{{/user}}
+- {{title}} {{#user}}@{{login}}{{/user}}
 {{/commits}}
 `;
 
