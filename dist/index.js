@@ -19,7 +19,7 @@ module.exports = async function detect({
   head,
 }) {
   if (!octokit) {
-    octokit = octokitWithThrottling({
+    octokit = octokitWithThrottling.get({
       auth: token,
     });
   }
@@ -99,7 +99,7 @@ module.exports = async function ({
   labels,
   template,
 }) {
-  const octokit = octokitWithThrottling({
+  const octokit = octokitWithThrottling.get({
     auth: token,
     ...(host ? { baseUrl: host } : {}),
   });
@@ -242,13 +242,13 @@ const defaultTemplate = `Release {{version}}
 "use strict";
 __nccwpck_require__.r(__webpack_exports__);
 /* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "get": () => (/* binding */ get)
 /* harmony export */ });
 const { Octokit } = __nccwpck_require__(5375);
 const { throttling } = __nccwpck_require__(9968);
 const THROTTLING_RETRY_LIMIT = 3;
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((config) => {
+function get (config) {
   const OctokitWithPlugin = Octokit.plugin(throttling);
   const retryFunction = (retryAfter, options, octokit) => {
     octokit.log.warn(
@@ -268,7 +268,7 @@ const THROTTLING_RETRY_LIMIT = 3;
       onSecondaryRateLimit: retryFunction,
     },
   });
-});
+}
 
 
 /***/ }),
