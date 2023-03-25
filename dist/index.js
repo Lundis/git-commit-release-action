@@ -93,7 +93,7 @@ module.exports = async function ({
   if (pullsRes.data.length === 0) {
     core.info("No preexisting PR found, will proceed to creation");
     // create
-    const content = messageUtils.assemble({ template, pulls: commits });
+    const content = messageUtils.assemble({ template, commits });
     const createdRes = await octokit.pulls.create({
       owner,
       repo,
@@ -107,7 +107,7 @@ module.exports = async function ({
     core.info("Preexisting PR found, will proceed to update");
     // update
     const existing = pullsRes.data[0];
-    const content = messageUtils.assemble({ template, pulls: commits });
+    const content = messageUtils.assemble({ template, commits });
     const updatedRes = await octokit.pulls.update({
       owner,
       repo,
