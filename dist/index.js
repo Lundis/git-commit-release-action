@@ -173,7 +173,7 @@ exports.assemble = ({ template, commits }) => {
 
 const defaultTemplate = `Release {{version}}
 {{#commits}}
-- {{title}} {{#user}}@{{login}}{{/user}}
+- {{title}}
 {{/commits}}
 `;
 
