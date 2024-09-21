@@ -1,5 +1,5 @@
 name: 'Git commit release action'
-description: 'Create a release pull-request.'
+description: 'Create/Update a release pull-request when a commit is made.'
 author: 'Lundis'
 inputs:
   owner:
@@ -24,8 +24,8 @@ inputs:
     description: 'Used to create a pull request.'
     required: true
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
 branding:
-  icon: 'check-square'
-  color: 'gray-dark'
+  icon: 'activity'
+  color: 'purple'

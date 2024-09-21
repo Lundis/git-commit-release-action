@@ -1,11 +1,28 @@
-# git-pr-release-action
+# git-commit-release-action
 
-Create a pull-request for the production release.
+Create and maintain a pull-request description between two branches, such as production <- preproduction.
 
-If your team adopts a workflow like 'GitLab flow', you may have two branches, such as production and pre-production (or staging and so on).
-This action helps to list up commits between production and pre-production. And creates (or updates) a new pull-request with the list in the body.
+Commits between the two branches are listed in the pull-request description.
 
-This action is based on [grassedge/git-pr-release-action](https://github.com/grassedge/git-pr-release-action).
+Only commits in the format "prefix: message" are listed. They are then grouped by prefix.
+
+## Example
+
+Given commit messages:
+
+- prefix1: message1
+- did some work that shouldn't be in release notes
+- prefix1: message2
+- whatever: lol
+
+
+Corresponding output in the PR description:
+
+#### prefix1:
+  - message1
+  - message2
+#### whatever:
+  - lol
 
 ## Usage
 
@@ -22,15 +39,12 @@ jobs:
     runs-on: ubuntu-latest
     name: release_pull_request
     steps:
-      - name: checkout
-        uses: actions/checkout@v1
       - name: create-release-pr
-        uses: Lundis/git-pr-release-action@master
+        uses: Lundis/git-commit-release-action@v2
         with:
           base: production
           head: pre-production
           token: ${{ secrets.GITHUB_TOKEN }}
-          labels: a,b,c
           assign: true
 ```
 
@@ -41,16 +55,9 @@ jobs:
 - `base`: **required** Base branch of the release pull-request.
 - `head`: **required** Head branch of the release pull-request. Typically, it is the same as a subscribed branch.
 - `assign`: If true, assign each commit's author to the release pull-req
-- `labels`: Labels that is added to the release pull-request
-- `template`: Path to the template you want to use.
-- `tz`: Used to generate the version string.
 - `token`: **required** `GITHUB_TOKEN` for creating a pull request.
 
 Note that this action uses the template file in your repository. So you need 'checkout' step if you specify template option.
-
-## Demo
-
-![](./docs/screenshot.png)
 
 ## License
 
