@@ -21,12 +21,12 @@ console.log(`repo: ${repo}`);
 
 const octokit = new _octokit_action__WEBPACK_IMPORTED_MODULE_0__/* .Octokit */ .vd();
 
-let commits = await octokit.repos.compareCommits({
+let commits = (await octokit.repos.compareCommits({
   owner,
   repo,
   base,
   head,
-}).data.commits
+})).data.commits
 
 console.log(`Found ${commits.length} commits`);
 
