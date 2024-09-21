@@ -33,7 +33,6 @@ console.log(
 );
 
 if (commits.length === 0) {
-  console.log("No commits found between base and head");
   process.exit(0);
 }
 
@@ -75,7 +74,7 @@ const relevantPullRequests = (await octokit.pulls.list({
 
 let releasePr;
 if (relevantPullRequests.length === 0) {
-  console.log("No preexisting PR found, will proceed to creation");
+  console.log("No existing PR found, will proceed to creation");
   const { data } = await octokit.repos.getLatestRelease({
     owner: owner, // Owner of the repo
     repo: repo,   // Repo name
@@ -93,7 +92,7 @@ if (relevantPullRequests.length === 0) {
     body: body,
   })).data;
 } else {
-  console.log("Preexisting PR found, will proceed to update");
+  console.log("Existing PR found, will proceed to update");
   // update
   const existing = relevantPullRequests[0];
   releasePr = (await octokit.pulls.update({
