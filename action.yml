@@ -2,26 +2,8 @@ name: 'Git commit release action'
 description: 'Create/Update a release pull-request when a commit is made.'
 author: 'Lundis'
 inputs:
-  owner:
-    description: "Default is current reopsitory's owner."
-  repo:
-    description: "Default is current reopsitory's name."
-  base:
+  target_branch:
     description: "Base branch of the release pull-request."
-    required: true
-  head:
-    description: "Head branch of the release pull-request. Typically, it is the same as a subscribed branch."
-    required: true
-  assign:
-    description: "If true, assign each commit's author to the release pull-req"
-  labels:
-    description: 'Labels that is added to the release pull-request'
-  template:
-    description: 'Path to the template you want to use.'
-  tz:
-    description: 'Used to generate the version string.'
-  token:
-    description: 'Used to create a pull request.'
     required: true
 runs:
   using: 'node20'
