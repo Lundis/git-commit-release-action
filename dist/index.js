@@ -21,16 +21,12 @@ console.log(`repo: ${repo}`);
 
 const octokit = new _octokit_action__WEBPACK_IMPORTED_MODULE_0__/* .Octokit */ .vd();
 
-let commitsResponse = await octokit.repos.compareCommits({
+let commits = await octokit.repos.compareCommits({
   owner,
   repo,
   base,
   head,
-})
-
-console.log(commitsResponse);
-let commits = commitsResponse.data.commits;
-
+}).data.commits
 
 console.log(`Found ${commits.length} commits`);
 
@@ -41,7 +37,7 @@ if (commits.length === 0) {
 const grouped = commits
     .map(c => c.commit.message)
     .flatMap(str => str.split('\n'))
-    .filter(line => line.contains(':'))
+    .filter(line => line.includes(':'))
     .reduce((acc, item) => {
       // Split each string into prefix and content
       const [prefix, content] = item.split(':').map(str => str.trim());
