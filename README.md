@@ -6,6 +6,8 @@ Commits between the two branches are listed in the pull-request description.
 
 Only commits in the format "prefix: message" are listed. They are then grouped by prefix.
 
+Based on [SplashThat/git-pr-release-action](https://github.com/SplashThat/git-pr-release-action).
+
 ## Example
 
 Given commit messages:
