@@ -46,8 +46,10 @@ jobs:
         with:
           base: production
           head: pre-production
-          token: ${{ secrets.GITHUB_TOKEN }}
           assign: true
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
 ```
 
 **input**
