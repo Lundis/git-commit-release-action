@@ -44,24 +44,10 @@ jobs:
       - name: create-release-pr
         uses: Lundis/git-commit-release-action@v2
         with:
-          base: production
-          head: pre-production
-          assign: true
+          target_branch: production
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
 ```
-
-**input**
-
-- `owner`: Default is current reopsitory's owner.
-- `repo`: Default is current reopsitory's name.
-- `base`: **required** Base branch of the release pull-request.
-- `head`: **required** Head branch of the release pull-request. Typically, it is the same as a subscribed branch.
-- `assign`: If true, assign each commit's author to the release pull-req
-- `token`: **required** `GITHUB_TOKEN` for creating a pull request.
-
-Note that this action uses the template file in your repository. So you need 'checkout' step if you specify template option.
 
 ## License
 
