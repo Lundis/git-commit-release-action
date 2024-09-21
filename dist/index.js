@@ -21,16 +21,18 @@ console.log(`repo: ${repo}`);
 
 const octokit = new _octokit_action__WEBPACK_IMPORTED_MODULE_0__/* .Octokit */ .vd();
 
-let commits = await octokit.repos.compareCommits({
+let commitsResponse = await octokit.repos.compareCommits({
   owner,
   repo,
   base,
   head,
-}).data.commits;
+})
 
-console.log(
-    `Found ${commits.length} commits between head and base`
-);
+console.log(commitsResponse);
+let commits = commitsResponse.data.commits;
+
+
+console.log(`Found ${commits.length} commits`);
 
 if (commits.length === 0) {
   process.exit(0);
